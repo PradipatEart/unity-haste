@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4535912454160699319}
   - component: {fileID: 5001862683051528825}
-  - component: {fileID: 6784973004145460730}
   m_Layer: 0
   m_Name: DownArrow
   m_TagString: Arrow
@@ -85,15 +84,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6784973004145460730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198777176466746802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 036c8f6d8038da34e863878f0a84ffd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

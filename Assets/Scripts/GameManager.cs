@@ -30,24 +30,28 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        //Start SwipeListener
         swipeListener.OnSwipe.AddListener(onSwipe);
     }
 
     private void OnDisable()
     {
+        //Stop SwipeListener
         swipeListener.OnSwipe.RemoveListener(onSwipe);
     }
 
     void Start()
     {
+        //Update highscore text
         Invoke("updateHighscore", 0.1f);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //Tap to Start
         if (Input.GetMouseButton(0) && !gameStarted)
         {
+            //Check if player input is in the playable area
             Vector3 inputpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 barrierpos = barrier.transform.position;
             if (inputpos.y > barrierpos.y) 
@@ -65,12 +69,13 @@ public class GameManager : MonoBehaviour
             }
         }
         if (!gameStarted) return;
-        UpdateCountdown();
+        UpdateCountdown(); //Start Countdown
     }
 
+    //Check swipe with arrow
     private void onSwipe(string swipe)
     {
-        if (arrowDirection.Equals(swipe))
+        if (arrowDirection.Equals(swipe)) //Check if swipe direction = arrow direction
         {
             SpawnArrow();
             score++;
@@ -88,12 +93,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
-
+    //Spawn Arrow in random direction
     void SpawnArrow() 
     {
         int ran = Random.Range(1, 3);
-        switch (arrowDirection)
+        switch (arrowDirection) //Checking arrow direction for arrow not to spawn same direction
         {
             case "Left":
                 switch (ran)
@@ -186,12 +190,13 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
-        DecreaseTime();
+        DecreaseTime();  //Decrease timer
         ResetCountdown();
         UpdateCountdown();
 
     }
 
+    //Decrease countdown time for every progression
     void DecreaseTime()
     {
         if (countdownTime - 0.3f >= 0.4f)
@@ -200,6 +205,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Update countdown
     void UpdateCountdown()
     {
         currentTime -= Time.deltaTime;
@@ -207,6 +213,7 @@ public class GameManager : MonoBehaviour
         Invoke("checkLose", 0.1f);
     }
 
+    //Update countdown circle display
     void UpdateCountdownBar()
     {
         float fillAmount = currentTime / countdownTime;
@@ -222,6 +229,7 @@ public class GameManager : MonoBehaviour
         currentTime = countdownTime;
     }
 
+    //Checking if timer run out
     void checkLose()
     {
         if (currentTime < 0f)
@@ -230,6 +238,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Lose function execute when timer run out
     void Lose()
     {
         GameObject arrow = GameObject.FindGameObjectWithTag("Arrow");
@@ -240,6 +249,7 @@ public class GameManager : MonoBehaviour
         Invoke("restartGame", 2);
     }
 
+    //Hightscore function
     void checkHighscore()
     {
         if (score > PlayerPrefs.GetInt("Highscore", 0)) 
@@ -248,11 +258,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Update highscore text display
     void updateHighscore()
     {
         scoreText.text = "Highscore : " + PlayerPrefs.GetInt("Highscore", 0).ToString();
     }
 
+    //Restart Game
     void restartGame()
     {
         SceneManager.LoadScene("Game");
